@@ -1,0 +1,34 @@
+# Install Apache2 on Ubuntu
+sudo apt update -y
+sudo apt install apache2 -y
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+# Install httpd on Amazon Linux
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+# Deploy tooplate HTML template
+sudo unzip template.zip -d /var/www/html/
+
+# Verify web server
+curl http://localhost
+
+# Check ALB details
+aws elbv2 describe-load-balancers
+
+# Check Target Group details
+aws elbv2 describe-target-groups
+
+# Check Target Group health
+aws elbv2 describe-target-health --target-group-arn <tg-arn>
+
+# Fix security group (example)
+# Allow ALB SG to access EC2 SG on port 80
+aws ec2 authorize-security-group-ingress \
+  --group-id <ec2-sg-id> \
+  --protocol tcp \
+  --port 80 \
+  --source-group <alb-sg-id>
+
