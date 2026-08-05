@@ -1,2 +1,2 @@
-# aws-foundations-journal
-Daily AWS + DevOps hands-on journal following my Cloud Architect roadmap.
+# cloud-foundations-journal
+Daily AWS + cloud engineering + DevOps hands-on journal following my Cloud Career roadmap.
