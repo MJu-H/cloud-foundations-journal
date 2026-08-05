@@ -1,0 +1,30 @@
+# List volumes
+aws ec2 describe-volumes
+
+# Create a snapshot from the attached volume
+aws ec2 create-snapshot --volume-id <volume-id> --description "Backup before corruption"
+
+# List snapshots
+aws ec2 describe-snapshots --owner-ids self
+
+# Create a new volume from the snapshot
+aws ec2 create-volume --availability-zone us-east-1c --snapshot-id <snapshot-id>
+
+# Attach the restored volume
+aws ec2 attach-volume --volume-id <new-volume-id> --instance-id <instance-id> --device /dev/xvdf
+
+# Create an AMI from a different instance
+aws ec2 create-image --instance-id <instance-id> --name "my-custom-ami" --description "AMI for launch template"
+
+# List AMIs
+aws ec2 describe-images --owners self
+
+# Create a Launch Template using the AMI
+aws ec2 create-launch-template \
+  --launch-template-name my-template \
+  --version-description "v1" \
+  --launch-template-data '{"ImageId":"<ami-id>","InstanceType":"t3.micro"}'
+
+# Launch an instance from the Launch Template
+aws ec2 run-instances --launch-template LaunchTemplateName=my-template,Version=1
+

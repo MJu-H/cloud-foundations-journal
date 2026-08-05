@@ -1,0 +1,31 @@
+# Install stress tool (Amazon Linux)
+sudo yum install stress -y
+
+# Create a bash script that stresses the CPU
+cat << 'EOF' > cpu_stress.sh
+#!/bin/bash
+stress --cpu 38 --timeout 60
+EOF
+
+# Make the script executable
+chmod +x cpu_stress.sh
+
+# Run it in the background using nohup
+nohup ./cpu_stress.sh &
+
+# Verify it's running
+ps aux | grep stress
+
+# Describe CloudWatch alarms
+aws cloudwatch describe-alarms
+
+# List SNS topics
+aws sns list-topics
+
+# (Optional) Publish a test SNS message
+aws sns publish \
+  --topic-arn <sns-topic-arn> \
+  --message "Test message from CloudWatch SNS"
+
+# After 60 seconds, stress stops automatically
+
