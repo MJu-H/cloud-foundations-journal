@@ -1,9 +1,0 @@
-## Commands I have used 
-
-aws ec2 describe-instance-types --instance-types t3.micro
-aws ec2 describe-instance-types --instance-types t3.small
-aws ec2 run-instances --instance-type t3.micro --image-id <ami-id> --key-name <key>
-aws ec2 describe-instances
-aws ec2 monitor-instances --instance-ids <id>
-aws ec2 get-console-output --instance-id <id>
-
